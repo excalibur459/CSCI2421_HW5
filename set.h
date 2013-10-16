@@ -13,23 +13,30 @@
 class set
 {
 public:
-	//Constructor
+	//Constructors
 	set ();
-
-	//Copy Constructor
 	set (const set&);
 
 	//Setter
+	//Pre: int value to insert into set
+	//Post: if value is not already present in set will have been inserted
 	void insert(int);
 	
 	//Constant Getters
-	bool search(int&);
+	//Pre: int to search for in set
+	//Post: true returned if int is in set, false otherwise
+	bool search(int);
+	//Pre: none
+	//Post: true returned if set is empty, false otherwise
 	bool empty() const;
+	//Pre: none
+	//Post: count of elements in set returned
 	int size() const;
 
 	//Operators
 	set operator + (const set&);
 	set operator - (const set&);
+	set operator & (const set&);
 	set& operator = (const set&);
 	bool operator == (const set&);
 	friend std::ostream& operator << (std::ostream&, const set&);

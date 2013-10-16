@@ -32,6 +32,20 @@ int main(int argc, char* argv[])
 	std::cout << "\nA = " << A;
 	std::cout << "\nB = " << B;
 	std::cout << "\nC = " << C;
+
+	//Display Operator functions
+	std::cout << "\nA & (B + C) = " << (A & (B + C));
+	std::cout << "\n(A + B) - C = " << (A + B) - C;
+	std::cout << "\n(A & B) + (B & C) = " << (A & B) + (B & C);
+	std::cout << "\n(A - B) + (C - A) = " << (A - B) + (C - A);
+
+	std::string tf = "False";
+	if ((A&B)==(B-C)){tf = "True";}
+	std::cout << "\n(A & B) == (B - C) = " << tf;
+
+	//debug testing
+	std::cout << "\n\nDebug: A & B = " << (A & B);
+	std::cout << "\n\nDebug: B + C = " << B + C;
 	
 	return EXIT_SUCCESS;
 }

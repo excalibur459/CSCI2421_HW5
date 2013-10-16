@@ -25,7 +25,7 @@ void set::insert(int element)
 	}
 }
 	
-bool set::search(int& query)
+bool set::search(int query)
 {	
 	node<int>* temp = this->set_bag.head_ptr;
 	node<int>* search_result = list_search(temp,query);
@@ -52,11 +52,88 @@ int set::size() const
 //Operators
 set set::operator + (const set& rhs)
 {
-	return rhs;
+	set return_set;
+	//check for two empty sets, return empty set if true
+	if (this->empty() == true && rhs.empty() == true)
+	{
+		return return_set;
+	}
+	//insert elements from lhs up to tail node
+	node<int> temp = *this->set_bag.head_ptr;
+	while (temp.link() != NULL)
+	{
+		return_set.insert(temp.data());
+		temp = *temp.link();
+	}
+	//insert tail node of lhs
+	if (temp.link() == NULL)
+	{
+		return_set.insert(temp.data());
+	}
+	
+	//insert elements from rhs up to tail node
+	temp = *rhs.set_bag.head_ptr;
+	while (temp.link() != NULL)
+	{
+		return_set.insert(temp.data());
+		temp = *temp.link();
+	}
+	//insert tail node of rhs
+	if (temp.link() == NULL)
+	{
+		return_set.insert(temp.data());
+	}
+	return return_set;
 }
 set set::operator - (const set& rhs)
 {
-	return rhs;
+	//new empty set
+	set return_set;
+	//check for two empty sets, return empty set if true
+	if (this->empty() == true && rhs.empty() == true)
+	{
+		return return_set;
+	}
+
+	//each item present in lhs but not rhs inserted in new set up to tail node
+	node<int> temp = *this->set_bag.head_ptr;
+	set rhs_temp = rhs;
+	while (temp.link() != NULL)
+	{
+		if (rhs_temp.search(temp.data()) == false) {return_set.insert(temp.data());}
+		temp = *temp.link();
+	}
+	//insert tail node if present in lhs but not rhs
+	if (temp.link() == NULL)
+	{
+		if (rhs_temp.search(temp.data()) == false)
+		{
+			return_set.insert(temp.data());
+		}
+	}
+	
+	return return_set;
+}
+set set::operator & (const set& rhs)
+{
+	set return_set;
+	//check for two empty sets, return empty set if true
+	if (this->empty() == true && rhs.empty() == true)
+	{
+		return return_set;
+	}
+	//each item present in lhs and rhs inserted into intersection up to tail node
+	node<int> temp = *this->set_bag.head_ptr;
+	set rhs_temp = rhs;
+	while (temp.link() != NULL)
+	{
+		if (rhs_temp.search(temp.data()) == true) {return_set.insert(temp.data());}
+		temp = *temp.link();
+	}
+	//insert tail node if present in both lhs and rhs
+	if (temp.link() == NULL)
+		if (rhs_temp.search(temp.data()) == true) {return_set.insert(temp.data());}
+	return return_set;
 }
 set& set::operator = (const set& rhs)
 {
@@ -67,6 +144,37 @@ set& set::operator = (const set& rhs)
 }
 bool set::operator == (const set& rhs)
 {
+	//check for two empty sets
+	if (this->empty() == true && rhs.empty() == true)
+	{
+		return true;
+	}
+	//confirm each item is present in rhs up to tail node
+	node<int> temp = *this->set_bag.head_ptr;
+	set rhs_temp = rhs;
+	while (temp.link() != NULL)
+	{
+		if (rhs_temp.search(temp.data()) == false) {return false;}
+		temp = *temp.link();
+	}
+	//confirm tail node is present in rhs
+	if (temp.link() == NULL)
+		if (rhs_temp.search(temp.data()) == false) 
+		{
+			return false;
+		}
+	
+	//confirm each item is present in lhs up to tail node
+	temp = *rhs.set_bag.head_ptr;
+	set lhs_temp = *this;
+	while (temp.link() != NULL)
+	{
+		if (lhs_temp.search(temp.data()) == false) {return false;}
+		temp = *temp.link();
+	}
+	//confirm tail node is present in rhs
+	if (temp.link() == NULL)
+		if (lhs_temp.search(temp.data()) == false) {return false;}
 	return true;
 }
 std::ostream& operator << (std::ostream& target, const set& source)
