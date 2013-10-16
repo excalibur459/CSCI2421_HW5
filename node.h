@@ -165,10 +165,10 @@ private:
 	void list_head_insert(node<value_type>*& head_ptr, const value_type& entry); 
     template <typename value_type>
 	void list_insert(node<value_type>* previous_ptr, const value_type& entry); 
+	template <typename value_type>
+	node<value_type>* list_search(node<value_type>* head_ptr, const value_type& target);
     template <typename value_type>
-	node<value_type>* list_search(node<value_type>* head_ptr, const value_type& target); 
-    template <typename value_type>
-	const node<value_type>* list_search(const node<value_type>* head_ptr, const value_type& target); 
+	const node<value_type>* list_search(const node<value_type>* head_ptr, const value_type& target);
     template <typename value_type>
 	node<value_type>* list_locate(node<value_type>* head_ptr, std::size_t position); 
     template <typename value_type>
@@ -183,4 +183,5 @@ private:
 	void list_copy(const node<value_type>* source_ptr, node<value_type>*& head_ptr, node<value_type>*& tail_ptr); 
   
 #include "node.tem"
+
 #endif 

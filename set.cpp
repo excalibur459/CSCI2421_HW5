@@ -25,15 +25,16 @@ void set::insert(int element)
 	}
 }
 	
-/*bool set::search(const int& query)
-{
-	node<int> temp = *this->set_bag.head_ptr;
-	if (list_search(&temp, query) != NULL)
+bool set::search(int& query)
+{	
+	node<int>* temp = this->set_bag.head_ptr;
+	node<int>* search_result = list_search(temp,query);
+	if (search_result != NULL)
 	{	
 		return true;
 	}
 	return false;
-}*/
+}
 
 bool set::empty() const
 {

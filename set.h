@@ -4,7 +4,6 @@
 //Declaration of set class that uses a dynamic bag
 
 #include "bag.h"
-#include "node.h"
 #include <iostream>
 #include <cstdlib>
 
@@ -24,7 +23,7 @@ public:
 	void insert(int);
 	
 	//Constant Getters
-	/*bool search(const int&);*/
+	bool search(int&);
 	bool empty() const;
 	int size() const;
 

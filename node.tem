@@ -43,12 +43,15 @@ using namespace std;
     // Library facilities used: cstdlib 
     { 
     node<value_type> *cursor; 
-  
-    for (cursor = head_ptr; cursor != NULL; cursor = cursor->link( )) 
-        if (target == cursor->data( )) 
+    value_type val;
+    for (cursor = head_ptr; cursor != NULL; cursor = cursor->link( ))
+	{
+		val = cursor->data(); 
+        if (target == val) 
         return cursor; 
+	}
     return NULL; 
-    } 
+    }
   
 	template<typename value_type>
     const node<value_type>* list_search(const node<value_type>* head_ptr, value_type& target) 
@@ -56,11 +59,13 @@ using namespace std;
     { 
     const node<value_type> *cursor; 
   
-    for (cursor = head_ptr; cursor != NULL; cursor = cursor->link( )) 
-        if (target == cursor->data( )) 
+	value_type val;
+    for (cursor = head_ptr; cursor != NULL; cursor = cursor->link( ))
+		val = cursor->data(); 
+        if (target == val) 
         return cursor; 
     return NULL; 
-    } 
+    }
   
 	template<typename value_type>
     node<value_type>* list_locate(node<value_type>* head_ptr, size_t position) 
@@ -134,10 +139,12 @@ using namespace std;
     tail_ptr = head_ptr; 
   
     // Copy the rest of the nodes one at a time, adding at the tail of new list. 
-    source_ptr = source_ptr->link( ); 
+    source_ptr = source_ptr->link( );
+	value_type val;
     while (source_ptr != NULL) 
     { 
-        list_insert(tail_ptr, source_ptr->data( )); 
+        val = source_ptr->data();
+		list_insert(tail_ptr, val); 
         tail_ptr = tail_ptr->link( ); 
         source_ptr = source_ptr->link( ); 
     } 
