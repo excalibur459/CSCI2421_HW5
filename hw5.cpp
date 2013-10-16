@@ -22,17 +22,16 @@ int main(int argc, char* argv[])
 	std::ifstream input;
 	hw5functions::open_file(input, argv[1]);
 
-	//Find number of elements in each set
-	int A_size;
-	int B_size;
-	int C_size;
-	hw5functions::find_sizes(input, A_size, B_size, C_size);
-
 	//Populate Sets A, B, and C
 	set A;
 	set B;
 	set C;
-	hw5functions::populate_sets(input,A,B,C,A_size,B_size,C_size);
+	hw5functions::populate_sets(input,A,B,C);
 
+	//Display A, B, and C
+	std::cout << "\nA = " << A;
+	std::cout << "\nB = " << B;
+	std::cout << "\nC = " << C;
+	
 	return EXIT_SUCCESS;
 }

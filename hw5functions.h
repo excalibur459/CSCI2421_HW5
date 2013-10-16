@@ -33,9 +33,9 @@ namespace hw5functions
 	//Pre:File opened successfully in ifstream, 3 ints to store number of values in each set
 	//Post:ints store number of values in each set
 	void find_sizes(std::ifstream&,int&,int&,int&);
-	//Pre:File opened successfully in ifstream, 3 lines of space delimited ints in file, and int count of elements on each line
+	//Pre:File opened successfully in ifstream, 3 lines of space delimited ints in file
 	//Post:3 sets are populated, one from each line of file
-	void populate_sets(std::ifstream&,set&,set&,set&,int&,int&,int&);
+	void populate_sets(std::ifstream&,set&,set&,set&);
 };
 
 #endif

@@ -82,8 +82,9 @@ std::ostream& operator << (std::ostream& target, const set& source)
 	while (temp.link() != NULL)
 	{
 		std::cout  << ", " << temp.data();
+		temp = *temp.link();
 	}
-
-	target << "}";
+	if (temp.link() == NULL)
+	target << ", " << temp.data() << "}";
 	return target;
 }

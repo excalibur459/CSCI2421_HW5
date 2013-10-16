@@ -18,7 +18,6 @@ void hw5functions::greeting()
 	//hold for user input
 	int x;
 	std::cin >> x;
-	std::cout << '\n';
 	std::cin.ignore(255, '\n');
 }
 
@@ -41,89 +40,40 @@ void hw5functions::open_file(std::ifstream& in,char* file)
 	}
 }
 
-void hw5functions::find_sizes(std::ifstream& in,int& A_size,int& B_size,int& C_size)
-{
-	//set indexes to zero
-	A_size = 0;
-	B_size = 0;
-	C_size = 0;
-
-	//get first line
-	std::string str;
-	std::getline(in,str);
-	//count number of spaces in line (n-1 spaces for n coefficients)
-	for (int i = 0; i < str.size(); i++)
-	{
-		if (str[i] == ' ') ++A_size;
-	}
-	//+1 to get number of elements
-	++A_size;
-
-	//count line 2
-	std::getline(in,str);
-	
-	for (int i = 0; i < str.size(); i++)
-	{
-		if (str[i] == ' ') ++B_size;
-	}
-	//+1 to get number of elements
-	++B_size;
-
-	//count line 3
-	std::getline(in,str);
-	
-	for (int i = 0; i < str.size(); i++)
-	{
-		if (str[i] == ' ') ++C_size;
-	}
-	//+1 to get number of elements
-	++C_size;
-	
-	//reset eof flag
-	in.clear();
-}
-
-void hw5functions::populate_sets(std::ifstream& in, set& A, set& B, set& C,int& A_size,int& B_size,int& C_size)
+void hw5functions::populate_sets(std::ifstream& in, set& A, set& B, set& C)
 {
 	//move to beginning of file
+	in.seekg(in.beg);
 	in.clear();
-	in.seekg(0, in.beg);
 
 	std::string str;
 	std::stringstream ss;
+	ss.clear();
 
 	//Get first line, populate A
 	std::getline(in, str);
 	ss << str;
-	int ctr = A_size;
-	int element;
-	while (ctr > 0)
+	int val;
+	while (ss >> val)
 	{
-		
-		ss >> element;
-		A.insert(element);
-		--ctr;
+		A.insert(val);
 	}
 
 	//Get line 2, populate B
 	std::getline(in, str);
+	ss.clear();
 	ss << str;
-	ctr = B_size;
-	while (ctr > 0)
+	while (ss >> val)
 	{
-		ss >> element;
-		B.insert(element);
-		--ctr;
+		B.insert(val);
 	}
 
 	//Get line 3, populate C
 	std::getline(in, str);
+	ss.clear();
 	ss << str;
-	ctr = C_size;
-	while (ctr > 0)
+	while (ss >> val)
 	{
-		ss >> element;
-		C.insert(element);
-		--ctr;
+		C.insert(val);
 	}
 }
