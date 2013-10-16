@@ -1,0 +1,144 @@
+//Patrick Whetsel
+//CSCI 2421 Fall 2013
+//node.cpp
+//node template class definition, linked-list toolkit definitions from Textbook
+//see node.h for documentation
+
+#include <cassert>    // Provides assert 
+#include <cstdlib>    // Provides NULL and size_t 
+using namespace std; 
+  
+  
+	template<typename value_type>
+    size_t list_length(const node<value_type>* head_ptr) 
+    // Library facilities used: cstdlib 
+    { 
+    const node<value_type> *cursor; 
+    size_t answer; 
+  
+    answer = 0; 
+    for (cursor = head_ptr; cursor != NULL; cursor = cursor->link( )) 
+        ++answer; 
+  
+    return answer; 
+    } 
+  
+	template<typename value_type>
+    void list_head_insert(node<value_type>*& head_ptr, const value_type& entry) 
+    { 
+    head_ptr = new node<value_type>(entry, head_ptr); 
+    } 
+  
+	template<typename value_type>
+    void list_insert(node<value_type>* previous_ptr, value_type& entry) 
+    { 
+    node<value_type> *insert_ptr; 
+  
+    insert_ptr = new node<value_type>(entry, previous_ptr->link( )); 
+    previous_ptr->set_link(insert_ptr); 
+    } 
+  
+	template<typename value_type>
+    node<value_type>* list_search(node<value_type>* head_ptr, value_type& target) 
+    // Library facilities used: cstdlib 
+    { 
+    node<value_type> *cursor; 
+  
+    for (cursor = head_ptr; cursor != NULL; cursor = cursor->link( )) 
+        if (target == cursor->data( )) 
+        return cursor; 
+    return NULL; 
+    } 
+  
+	template<typename value_type>
+    const node<value_type>* list_search(const node<value_type>* head_ptr, value_type& target) 
+    // Library facilities used: cstdlib 
+    { 
+    const node<value_type> *cursor; 
+  
+    for (cursor = head_ptr; cursor != NULL; cursor = cursor->link( )) 
+        if (target == cursor->data( )) 
+        return cursor; 
+    return NULL; 
+    } 
+  
+	template<typename value_type>
+    node<value_type>* list_locate(node<value_type>* head_ptr, size_t position) 
+    // Library facilities used: cassert, cstdlib 
+    { 
+    node<value_type> *cursor; 
+    size_t i; 
+  
+    assert (0 < position); 
+    cursor = head_ptr; 
+    for (i = 1; (i < position) && (cursor != NULL); i++) 
+        cursor = cursor->link( ); 
+    return cursor; 
+    } 
+  
+    template<typename value_type>
+	const node<value_type>* list_locate(const node<value_type>* head_ptr, size_t position) 
+    // Library facilities used: cassert, cstdlib 
+    { 
+    const node<value_type> *cursor; 
+    size_t i; 
+  
+    assert (0 < position); 
+    cursor = head_ptr; 
+    for (i = 1; (i < position) && (cursor != NULL); i++) 
+        cursor = cursor->link( ); 
+    return cursor; 
+    } 
+  
+	template<typename value_type>
+    void list_head_remove(node<value_type>*& head_ptr) 
+    { 
+    node<value_type> *remove_ptr; 
+  
+    remove_ptr = head_ptr; 
+    head_ptr = head_ptr->link( ); 
+    delete remove_ptr; 
+    } 
+  
+	template<typename value_type>
+    void list_remove(node<value_type>* previous_ptr) 
+    { 
+    node<value_type> *remove_ptr; 
+  
+    remove_ptr = previous_ptr->link( ); 
+    previous_ptr->set_link( remove_ptr->link( ) ); 
+    delete remove_ptr; 
+    } 
+  
+	template<typename value_type>
+    void list_clear(node<value_type>*& head_ptr) 
+    // Library facilities used: cstdlib 
+    { 
+    while (head_ptr != NULL) 
+        list_head_remove(head_ptr); 
+    } 
+  
+	template<typename value_type>
+    void list_copy(const node<value_type>* source_ptr, node<value_type>*& head_ptr, node<value_type>*& tail_ptr) 
+    // Library facilities used: cstdlib 
+    { 
+    head_ptr = NULL; 
+    tail_ptr = NULL; 
+  
+    // Handle the case of the empty list. 
+    if (source_ptr == NULL) 
+        return; 
+  
+    // Make the head node for the newly created list, and put data in it. 
+    list_head_insert(head_ptr, source_ptr->data( )); 
+    tail_ptr = head_ptr; 
+  
+    // Copy the rest of the nodes one at a time, adding at the tail of new list. 
+    source_ptr = source_ptr->link( ); 
+    while (source_ptr != NULL) 
+    { 
+        list_insert(tail_ptr, source_ptr->data( )); 
+        tail_ptr = tail_ptr->link( ); 
+        source_ptr = source_ptr->link( ); 
+    } 
+    } 
